@@ -28,10 +28,38 @@ We use [nvidia-docker](https://github.com/NVIDIA/nvidia-docker#quick-start) for 
 
 To run the FlowNet2 networks, you need an Nvidia GPU (at least Kepler). For the smaller networks (e.g. *FlowNet2-s*) 1GB of VRAM is sufficient, while for the largest networks (the full *FlowNet2*) at least **4GB** must be available. A GTX 970 can handle all networks.
 
+需要先装Docker CE, https://blog.csdn.net/a632189007/article/details/78662741
+
+再装gpu版的Docker。https://blog.csdn.net/arag2009/article/details/78464275
+
+运行nvidia docker
+1、运行docker：
+- 运行docker systemctl start docker
+- 加入开机启动 systemctl enable docker
+- 查看状态 systemctl status docker
+ 
+ 
+ 
+
+2、运行nvidia-docker： （报错未启动时运行这三句）
+- systemctl start nvidia-docker
+- systemctl enable nvidia-docker
+- systemctl status nvidia-docker
+
+一些指令
+
+- docker images 查看已安装的镜像
+- docker search *** 查找镜像
+- docker pull ***   安装镜像（：版本号）
+
+
+根据我的理解，docker里有镜像和容器，镜像就是环境，容器是代码，容器选择镜像。
+
 ## 1. Building the FN2 Docker image
 
 Simply run `make`. This will create two Docker images: The OS base (an Ubuntu 16.04 base extended by Nvidia, with CUDA 8.0), and the "flownet2" image on top. In total, about 8.5GB of space will be needed after building. Build times are a little slow.
 
+当时直接make好像没成功，使用 docker build -f Dockerfile -t flownet2 .
 
 ## 2. Running FN2 containers
 
